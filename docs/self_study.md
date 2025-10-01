@@ -209,10 +209,98 @@ names = names.astype(str)
 heights = heights.astype(float)
 ~~~
 
+# pandas
+
+## Tasks
+* P000: create data frame
+* P000.1: get some first and last rows and random rows
+* P000.2: get information of dataframe
+* P000.3: get major numbers of dataframe
+* P000.4: get column
+* P001: load data from csv file and save to another
+* P002: slice
+* P003: sort
+* P004: iterate
+* P005: filter
+* P006: copy
+
+## Solutions
+* P000: create data frame
+~~~python
+import pandas as pd
+
+df = pd.DataFrame([[1,2,3],[4,5,6],[7,8,9]], columns=['A','B','C'])
+df.head() # some first rows
+df.tail(3) # 3 last rows
+df.sample(10) # 10 random rows
+df.columns  # columns 
+df.columns.tolist() # list of columns
+df.index # rows
+df.index.tolist() # list of rows
+df.info() # information 
+df.describe() # count, mean, std, etc.
+df['A'] # column A
+df['A'].unique() # arrays of unique elements
+df.shape() # shape of dataframe
+~~~
+
+* P001: load data from csv file and save to another
+~~~python
+import pandas as pd
+df = pd.read_csv('file.csv')
+df.to_csv('another.csv', index=False)
+~~~
+
+* P002: slice
+~~~python
+import pandas as pd
+df = pd.DataFrame([[1,2,3],[4,5,6],[7,8,9]], columns=['A','B','C'])
+df.loc[:, ['A', 'B']] # A and B columns only
+df.iloc[:, 0:2]       # A and B columns only
+df.iloc[:, [0,1]]     # A and B columns only
+df.at['A',0] = 88 # change one element
+df.iat[0,0] = 88  # change one element
+df['A'] # colum A
+~~~
+
+* P003: sort
+~~~python
+import pandas as pd
+df = pd.DataFrame([[1,2,3],[4,5,6],[7,8,9]], columns=['A','B','C'])
+df.sort_values(['A'])
+df.sort_values(['A', 'C'])
+df.sort_values(['A', 'C'], ascending=[0,1]) # sort descending A and ascending C
+~~~
+
+* P004: iterate
+~~~python
+import pandas as pd
+df = pd.DataFrame([[1,2,3],[4,5,6],[7,8,9]], columns=['A','B','C'])
+for index, row in df.iterrows()
+    print(index)
+    print(row['B'])
+~~~
+
+* P005: filter
+~~~python
+import pandas as pd
+df = pd.DataFrame([[1,2,3],[4,5,6],[7,8,9]], columns=['A','B','C'])
+df.loc[df['C'] > 3, ['A', 'B']] # filter and result has A and B columns 
+df[df['C'] > 3][['A', 'B']]     # the same as above
+
+df2[df2['Name'].str.contains('Mike', case=False)] # 
+df2[df2['Name'].str.startswith('Mike|Josh', case=False)] # starts with 'Mike' or 'Josh'
+df2.query('Name == "Mike"') # name equals 'Mike'
+# othes see https://www.youtube.com/watch?v=2uvysYbKdjM
+~~~
+
+* P006: df_new = df - wrong, df_new = df.copy() - correct
+
 # matplotlib
 
 ~~~python
 import matplotlib.pyplot as plt
+
 plt.plot([1, 2, 3], [2, 4, 6])
 plt.title("Line Plot")
 plt.xlabel("X Axis")
