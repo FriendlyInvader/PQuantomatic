@@ -1,6 +1,6 @@
 # NumPy
 
-Tasks: [source](https://www.youtube.com/watch?v=DcfYgePyedM)
+## Tasks: [source](https://www.youtube.com/watch?v=DcfYgePyedM)
 * T001: create 1D,2D,3D array
 * T001.1: get size, item size, dimention (number axes), shape(axis's dimentions), type of elements. [ndarray properties](https://numpy.org/doc/stable/reference/arrays.ndarray.html#id1), [types](https://numpy.org/doc/stable/reference/arrays.dtypes.html#arrays-dtypes)
 * T001.2: create array of ints
@@ -40,10 +40,20 @@ Let y = exp ^ (-x/10) * sin(x). Consider 10,000 intervalsin the range [0, 10]
 5. Find the location where dy/dx=0
 ~~~
 * T012: Sum together every number from 0 to 10000except for those that can be divided by 4 or 7. Do this in one line of code
+* T020: convert matrix to array
+* T030: multiply matrix to a vector
+* T030.1: Transpose matrix
+* T030.2: dot product of vectors
+* T030.3: cross product of vectors
+* T031: Solve system of equations
+~~~text
+3x + 2y + z = 4
+5x - 5y + 4z = 3
+6x + z = 0
+~~~
+* T040: Read csv file
 
-
-
-Solutions
+## Solutions
 * T001:
 ~~~python
 import numpy as np
@@ -160,8 +170,44 @@ nums = np.arange(0, 10001, 1)
 np.sum(nums[ (nums%4!=0) * (nums%7!=0) ])
 ~~~
 
+* T020: convert mtrix to array
+~~~python
+mat = np.array([[1,2,4], [6,8,0]])
+arr = np.ravel(mat)
+~~~
 
+* T030: multiply matrix to a vector
+~~~python
+A = np.array([[1,2,3],[5,-1,9],[7,3,4]])
+v = np.array([3,2,1])
+v2 = A@v # multiply matrix to vector
+AT = A.T # transposed matrix
+v_dot = np.dot(v, v2) # dot
+v_cross = np.cross(v, v2) # cross
+~~~
 
+* T031: Solve system of equations
+~~~python
+# 3x + 2y + z = 4
+# 5x - 5y + 4z = 3
+# 6x + z = 0
+A = np.array([[3,2,1],[5,-5,4],[6,0,1]])
+v = np.array([4,3,0])
+sol = np.linalg.solve(A, v)
+~~~
+
+* T040: Read csv file
+~~~python
+# GIVEN file.csv
+# name,heignt
+# Mike,184
+# John,165
+# Martha,186
+
+names, heights = np.loadtxt('file.csv', dtype='object', delimiter=',', unpack=True, skiprows=1)
+names = names.astype(str)
+heights = heights.astype(float)
+~~~
 
 # matplotlib
 
